@@ -1,0 +1,119 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication7;
+import java.util.Random;
+
+public class MatricesPatrones {
+static Random rand = new Random();
+    public static void main(String[] args) {
+        int filas = 5;
+        int columnas = 6;
+        int[][] matriz = new int[filas][columnas];
+
+        System.out.println("Matriz Zigzag Horizontal:");
+        imprimirMatriz(matriz);
+        System.out.println();
+        llenarZigzagHorizontal(matriz, filas, columnas);
+
+        System.out.println("\nMatriz Zigzag Vertical:");
+        imprimirMatriz(matriz);
+        System.out.println();
+        llenarZigzagVertical(matriz, filas, columnas);
+
+        System.out.println("\nMatriz Espiral:");
+        imprimirMatriz(matriz);
+        System.out.println();
+        llenarEspiral(matriz, filas, columnas);
+    }
+
+    private static void llenarZigzagHorizontal(int[][] matriz, int filas, int columnas) {
+        for (int i = 0; i < filas; i++) {
+            if (i % 2 == 0) {
+                for (int j = 0; j < columnas; j++) {
+                    matriz[i][j] = rand.nextInt(10);
+                    imprimirMatriz(matriz);
+                    System.out.println();
+                }
+            } else {
+                for (int j = columnas - 1; j >= 0; j--) {
+                    matriz[i][j] = rand.nextInt(10);
+                    imprimirMatriz(matriz);
+                    System.out.println();
+                }
+            }
+        }
+    }
+
+    private static void llenarZigzagVertical(int[][] matriz, int filas, int columnas) {
+        for (int j = 0; j < columnas; j++) {
+            if (j % 2 == 0) {
+                for (int i = 0; i < filas; i++) {
+                    matriz[i][j] = rand.nextInt(10);
+                    imprimirMatriz(matriz);
+                    System.out.println();
+                }
+            } else {
+                for (int i = filas - 1; i >= 0; i--) {
+                    matriz[i][j] = rand.nextInt(10);
+                    imprimirMatriz(matriz);
+                    System.out.println();
+                }
+            }
+        }
+    }
+
+      private static void llenarEspiral(int[][] matriz, int filas, int columnas) {
+        int valor = 0;
+        int filaInicio = 0;
+        int filaFin = filas - 1;
+        int columnaInicio = 0;
+        int columnaFin = columnas - 1;
+
+        while (filaInicio <= filaFin && columnaInicio <= columnaFin) {
+            for (int j = columnaInicio; j <= columnaFin; j++) {
+                matriz[filaInicio][j] = rand.nextInt(10);
+                imprimirMatriz(matriz);
+                System.out.println();
+            }
+            filaInicio++;
+
+            for (int i = filaInicio; i <= filaFin; i++) {
+                matriz[i][columnaFin] = rand.nextInt(10);
+                imprimirMatriz(matriz);
+                System.out.println();
+            }
+            columnaFin--;
+
+            if (filaInicio <= filaFin) {
+                for (int j = columnaFin; j >= columnaInicio; j--) {
+                    matriz[filaFin][j] = rand.nextInt(10);
+                    imprimirMatriz(matriz);
+                    System.out.println();
+                }
+                filaFin--;
+            }
+
+            if (columnaInicio <= columnaFin) {
+                for (int i = filaFin; i >= filaInicio; i--) {
+                    matriz[i][columnaInicio] = rand.nextInt(10);
+                    imprimirMatriz(matriz);
+                    System.out.println();
+                }
+                columnaInicio++;
+            }
+        }
+    }
+
+
+    private static void imprimirMatriz(int[][] matriz) {
+        for (int[] fila : matriz) {
+            for (int elemento : fila) {
+                System.out.print(elemento + " ");
+            }
+            System.out.println();
+        }
+    }
+}
