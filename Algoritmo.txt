@@ -1,0 +1,124 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication2;
+import java.util.Scanner;
+
+public class MatricesPatrones {
+static Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
+        System.out.println("Elige el metodo de ordenamiento\n 1)Vertical\n 2) Horizontal\n 3) Espiral ");
+        int opcion= sc.nextInt();
+        System.out.println("Digite el numero de filas");
+        int filas = sc.nextInt();
+        System.out.println("Digite el numero de columnas");
+        int columnas = sc.nextInt();
+        int[][] matriz = new int[filas][columnas];
+        
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.println("Digite un numero");
+                matriz[i][j] = sc.nextInt();
+    }
+}
+
+        
+
+
+        
+        switch(opcion){
+            case 1:
+                System.out.println("\nPrimera forma (Vertical):");
+                imprimirMatriz(matriz);
+                System.out.println();
+                llenarZigzagVertical(matriz, filas, columnas);
+                break;
+            case 2:
+                System.out.println("Segunda forma (Horizontal):");
+                imprimirMatriz(matriz);
+                System.out.println();
+                llenarZigzagHorizontal(matriz, filas, columnas);
+                break;
+            case 3:
+                System.out.println("\nTercera forma (Espiral):");
+                imprimirMatriz(matriz);
+                System.out.println();
+                llenarEspiral(matriz, filas, columnas);
+                break;
+        }
+    }
+
+    private static void llenarZigzagHorizontal(int[][] matriz, int filas, int columnas) {
+        for (int i = 0; i < filas; i++) {
+            if (i % 2 == 0) {
+                for (int j = 0; j < columnas; j++) {
+                    System.out.print(matriz[i][j]+" ");
+                }
+            } else {
+                for (int j = columnas - 1; j >= 0; j--) {
+                    System.out.print(matriz[i][j]+" ");
+                }
+            }
+        }
+    }
+
+    private static void llenarZigzagVertical(int[][] matriz, int filas, int columnas) {
+        for (int j = 0; j < columnas; j++) {
+            if (j % 2 == 0) {
+                for (int i = 0; i < filas; i++) {
+                    System.out.print(matriz[i][j]+" ");
+                }
+            } else {
+                for (int i = filas - 1; i >= 0; i--) {
+                    System.out.print(matriz[i][j]+" ");
+                }
+            }
+        }
+    }
+
+      private static void llenarEspiral(int[][] matriz, int filas, int columnas) {
+        int valor = 0;
+        int filaInicio = 0;
+        int filaFin = filas - 1;
+        int columnaInicio = 0;
+        int columnaFin = columnas - 1;
+
+        while (filaInicio <= filaFin && columnaInicio <= columnaFin) {
+            for (int j = columnaInicio; j <= columnaFin; j++) {
+                System.out.print(matriz[filaInicio][j]+" ");
+            }
+            filaInicio++;
+
+            for (int i = filaInicio; i <= filaFin; i++) {
+                System.out.print(matriz[i][columnaFin]+" ");
+            }
+            columnaFin--;
+
+            if (filaInicio <= filaFin) {
+                for (int j = columnaFin; j >= columnaInicio; j--) {
+                    System.out.print(matriz[filaFin][j]+" ");
+                }
+                filaFin--;
+            }
+
+            if (columnaInicio <= columnaFin) {
+                for (int i = filaFin; i >= filaInicio; i--) {
+                    System.out.print(matriz[i][columnaInicio]+" ");
+                }
+                columnaInicio++;
+            }
+        }
+    }
+
+
+    private static void imprimirMatriz(int[][] matriz) {
+        for (int[] fila : matriz) {
+            for (int elemento : fila) {
+                System.out.print(elemento + " ");
+            }
+            System.out.println();
+        }
+    }
+}
